@@ -1,0 +1,19 @@
+{% extends "_global/index.html" %}
+{% block main %}
+{% spaceless %}
+<p>{{ podatak }}</p>
+<div class="p-3 mb-2 bg-primary text-white container">
+    <div class="form font-weight-bold">
+      <div class="clock align-self-center" id="clock" style="font-size: 80px; text-align: center"></div>   
+        <form acction="{{ BASE }}" method="POST">
+          <div class="form-group"> 
+            <div class="input-group">
+              <input onblur="setFocus()" class="form-control" type="text" name="account_id" id="input" autofocus required placeholder="Enter Account ID">
+            </div>
+          </div>
+        </form>
+    </div>    
+</div>    
+
+{% endspaceless %}
+{% endblock %}

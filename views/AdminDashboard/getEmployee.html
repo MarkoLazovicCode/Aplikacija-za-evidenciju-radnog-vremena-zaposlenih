@@ -1,0 +1,109 @@
+{% extends "_global/index.html" %}
+{% block main %}
+<div class="d-flex" id="wrapper">
+    <div class="border-right" id="sidebar-wrapper">
+        <div class="clock bg-primary text-white" id="clock" style="font-size: 50px;"></div>
+        <div class="list-group list-group-flush">
+           <a href="{{ BASE }}admin/profile" class="list-group-item list-group-item-action bg-primary text-white">Dashboard</a>
+           <a href="{{ BASE }}admin/profile/employees" class="list-group-item list-group-item-action bg-primary text-white">Employees</a>
+           <a href="{{ BASE }}admin/profile/employees/ArchivedEmployees" class="list-group-item list-group-item-action bg-primary text-white">Archived</a>
+        </div>
+     </div>
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link btn-danger text-white" href="{{ BASE }}admin/profile/logOut/">Log out</a>
+                    </li>
+                </ul>
+          </div>
+        </nav>
+        <div class="container-fluid">  
+          <div class="row">
+                    
+                    <div class="col bg-primary text-white">
+                        <div class="row bg-primary text-white" style="font-size: 25px;">
+                            <div class="col-5">
+                                <p class="text-white" style="font-size: 30px;">Personal information</p>
+                            </div>
+                            <div class="col-2">
+                                <a href="{{ BASE }}admin/profile/employees/edit/{{ employee.employee_id }}/" class="btn btn-warning" role="button">  Edit  </a>
+                                <a href="{{ BASE }}admin/profile/employees/record/{{ employee.employee_id }}/" class="btn btn-warning" role="button">  Get All Recods  </a>
+                            </div>
+                            
+                        </div>
+                      
+                      <div class="row bg-white text-dark" style="font-size: 25px;">
+                          <div class="col-5">
+                              <p class="text-left">Employee ID:       {{ employee.employee_id }}</p>
+                              <p class="text-left">Name:              {{ employee.name }}</p>
+                              <p class="text-left">Lastname:          {{ employee.lastname }}</p>
+                              <p class="text-left">Address:           {{ employee.address }}</p>
+                              <p class="text-left">Phone:             {{ employee.phone }}</p>
+                              <p class="text-left">Mail:              {{ employee.mail }}</p>
+                              <p class="text-left">Created:           {{ employee.created_at }}</p>
+                              <p class="text-left">ID Card:           {{ account.account_id }}</p>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col bg-primary text-white">
+                        <p class="text-white " style="font-size: 30px;">Working hours</p>
+                      <div class="col-4 date-container bg-dark text-white pt-3 pb-3">
+                          <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Start date</span>
+                              </div>
+                              <input name="dateMin" id="dateMin" type="date" class="form-control" placeholder="Start date" aria-label="Start date" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1">End date</span>
+                                </div>
+                                <input name="dateMax" id="dateMax" type="date" class="form-control" placeholder="End date" aria-label="End date" aria-describedby="basic-addon1">
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="getTotalTimeByDateRange()">Get records</button>
+                      </div>
+                      <p></p>
+                      <div class="col-* table-container">
+                          <table class="table table-dark" id="table">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Login time</th>
+                                  <th scope="col">Logout time</th>
+                                  <th scope="col">Logged in time</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for record in records %}
+                                <tr>
+                                    <td>{{ record.login_time }}</td>
+                                    <td>{{ record.logout_time }}</td>
+                                    <td>{{ record.logged_in_time }}</td>
+                                  </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                      </div>
+                      <button type="button" class="btn btn-dark" onclick="sumTimes()">Calculate</button>
+                      <p id="total" style="font-size: 30px;">Total:</p>
+
+                    </div>
+                  </div>
+
+        </div>
+    </div>
+  </div>
+  <script>
+      $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+      });
+    </script>
+{% endblock %}

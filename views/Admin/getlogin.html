@@ -1,0 +1,20 @@
+{% extends "_global/index.html" %}
+{% block main %}
+{% spaceless %}
+<div class="p-3 mb-2 bg-primary text-white container">
+    <div class="clock align-self-center" id="clock" style="font-size: 80px; text-align: center">
+      </div>   
+      <form acction="{{ BASE }}admin" method="POST">  
+        <div class="form-group">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" class="form-control" placeholder="Enter Username" name="login_username" required>
+          </div>
+        <div class="form-group">
+            <label for="psw"><b>Password</b></label>
+            <input type="password" class="form-control" placeholder="Enter Password" name="login_password" required>
+        </div>
+        <button type="submit" class="btn btn-dark text-white">Submit</button>
+      </form>  
+</div>
+{% endspaceless %}
+{% endblock %}
